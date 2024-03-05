@@ -1,0 +1,99 @@
+code:  
+
+import SwiftUI
+
+struct LoginPageView: View {
+    @StateObject var model = LoginPageModel()
+
+    var body: some View {
+        NavigationView {
+            ZStack {
+                Color.primaryBackground
+                    .edgesIgnoringSafeArea(.all)
+                
+                VStack {
+                    Spacer()
+                    
+                    Image("login_bg")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 40)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        HStack {
+                            if colorScheme == .dark {
+                                Image("finWallet_logo_landscape")
+                            } else {
+                                Image("finWallet_logo_landscapeDark")
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                        
+                        ScrollView {
+                            VStack {
+                                Text("Welcome back")
+                                    .font(.title)
+                                    .foregroundColor(Color.primaryText)
+                                    .padding(.top, 12)
+                                
+                                Text("Login to access your account")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.primaryText)
+                                    .padding(.top, 12)
+                                
+                                TextField("Email Address", text: $model.emailAddress)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding(.top, 20)
+                                
+                                SecureField("Password", text: $model.password)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .padding(.top, 12)
+                                
+                                HStack {
+                                    NavigationLink(destination: ForgotPasswordView()) {
+                                        Text("Forgot Password?")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        // Perform login action
+                                    }) {
+                                        Text("Login")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .frame(width: 120, height: 50)
+                                            .background(Color.primary)
+                                            .cornerRadius(30)
+                                    }
+                                }
+                                .padding(.top, 24)
+                                
+                                Button(action: {
+                                    // Perform anonymous login action
+                                }) {
+                                    Text("Continue as Guest")
+                                        .font(.headline)
+                                        .foregroundColor(.primaryText)
+                                        .padding()
+                                        .frame(width: 230, height: 50)
+                                        .background(Color.secondaryBackground)
+                                        .cornerRadius(30)
+                                }
+                                .padding(.top, 24)
+                            }
+                            .padding(.horizontal, 24)
+                        }
+                    }
+                }
+            }
+            .navigationBarHidden(true)
+        }
+    }
+}
